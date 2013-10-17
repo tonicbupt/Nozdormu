@@ -8,9 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
-@interface NozDataViewController : UIViewController
+#define CHOOSE_SHEET_TAG 255
+
+@interface NozDataViewController : UIViewController<UIActionSheetDelegate,
+        UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
 @property (strong, nonatomic) IBOutlet UILabel *dataLabel;
 @property (strong, nonatomic) id dataObject;
+
 
 @end
