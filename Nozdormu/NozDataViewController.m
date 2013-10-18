@@ -10,6 +10,7 @@
 
 @interface NozDataViewController ()
 - (IBAction)chooseImage:(id)sender;
+- (IBAction)cancelChoosing:(id)sender;
 
 @end
 
@@ -37,15 +38,15 @@
     
     UIActionSheet *sheet;
     if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
-        sheet  = [[UIActionSheet alloc] initWithTitle:@"选择"
-                                             delegate:self
-                                    cancelButtonTitle:@"选你妹啊"
-                               destructiveButtonTitle:@"取消"
-                                    otherButtonTitles:@"拍照", @"从相册选择", nil];
-    } else {
-        sheet = [[UIActionSheet alloc] initWithTitle:@"选择"
+        sheet = [[UIActionSheet alloc] initWithTitle:@"选择一个图片以显示"
                                             delegate:self
-                                   cancelButtonTitle:@"选你妹啊"
+                                   cancelButtonTitle:nil
+                              destructiveButtonTitle:@"取消"
+                                   otherButtonTitles:@"拍照", @"从相册选择", nil];
+    } else {
+        sheet = [[UIActionSheet alloc] initWithTitle:@"选择一个图片以显示"
+                                            delegate:self
+                                   cancelButtonTitle:nil
                               destructiveButtonTitle:@"取消"
                                    otherButtonTitles:@"从相册选择", nil];
     }
@@ -53,6 +54,10 @@
     sheet.tag = CHOOSE_SHEET_TAG;
     [sheet showInView:self.view];
     
+}
+
+- (IBAction)cancelChoosing:(id)sender {
+    [self.imageView setImage:nil];
 }
 
 -(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
@@ -107,6 +112,7 @@
     
     UIImage *savedImage = [[UIImage alloc] initWithContentsOfFile:fullPath];
     
+    [self.imageView setContentMode:UIViewContentModeScaleAspectFit];
     [self.imageView setImage:savedImage];
     self.imageView.tag = 100;
     
