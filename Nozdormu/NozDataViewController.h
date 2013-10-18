@@ -15,6 +15,7 @@
 
 @property (strong, nonatomic) IBOutlet UILabel *dataLabel;
 @property (strong, nonatomic) id dataObject;
+@property (weak, nonatomic) IBOutlet UIImageView *imageView;
 
 
 @end

@@ -107,15 +107,29 @@
     
     UIImage *savedImage = [[UIImage alloc] initWithContentsOfFile:fullPath];
     
-    isFullScreen = NO;
     [self.imageView setImage:savedImage];
-    
     self.imageView.tag = 100;
     
 }
+
+/*
+ from UIImagePickerControllerDelegate
+ */
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
 {
-	[self dismissViewControllerAnimated:YES completion:^{}];
+	[self dismissViewControllerAnimated:YES completion:^{
+        NSLog(@"%@", @"哈哈哈你按了取消");
+    }];
 }
+
+- (void) saveImage:(UIImage *)currentImage withName:(NSString *)imageName
+{
+    
+    NSData *imageData = UIImageJPEGRepresentation(currentImage, 0.5);
+    NSString *fullPath = [[NSHomeDirectory() stringByAppendingPathComponent:@"Documents"]
+                          stringByAppendingPathComponent:imageName];
+    [imageData writeToFile:fullPath atomically:NO];
+}
+
 
 @end
